@@ -2,7 +2,7 @@
 
 
 from functools import partial, update_wrapper
-from typing import Callable, Dict, Hashable, Optional, Union, List
+from typing import Callable, Dict, Hashable
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -31,8 +31,6 @@ def base(
     edge_enc_kwargs: Dict = {},
     node_layout_kwargs: Dict = {},
     edge_line_kwargs: Dict = {},
-    node_palette: Optional[Union[Dict, List]] = None,
-    edge_palette: Optional[Union[Dict, List]] = None,
 ):
     """High-level graph plotting function.
 
@@ -51,10 +49,6 @@ def base(
     - `node_size_by`: Node metadata attribute key to set node size.
     - `node_enc_kwargs`: Keyword arguments to set node visual encodings.
         TODO: Elaborate on what these arguments are.
-    - `node_palette`: Optional custom palette of colours for plotting categorical groupings
-        in a list/dictionary. Colours must be values `matplotlib.colors.ListedColormap`
-        can interpret. If a dictionary is provided, key and record corresponds to
-        category and colour respectively.
 
     ### Edges
 
@@ -66,7 +60,6 @@ def base(
     - `edge_lw_by`: Edge metdata attribute key to set edge line width.
     - `edge_alpha_by`: Edge metdata attribute key to set edge transparency.
     - `edge_enc_kwargs`: Keyword arguments to set edge visual encodings.
-    - `edge_palette`: Same as node_palette but for edges.
         TODO: Elaborate on what these arguments are.
     """
     pos = node_layout_func(
@@ -78,7 +71,6 @@ def base(
         alpha_by=node_alpha_by,
         encodings_kwargs=node_enc_kwargs,
         layout_kwargs=node_layout_kwargs,
-        palette=node_palette,
     )
     edge_line_func(
         G,
@@ -88,7 +80,6 @@ def base(
         lw_by=edge_lw_by,
         alpha_by=edge_alpha_by,
         encodings_kwargs=edge_enc_kwargs,
-        palette=edge_palette,
     )
 
     despine()
@@ -155,8 +146,6 @@ def base_cloned(
     node_layout_kwargs: Dict = {},
     edge_line_kwargs: Dict = {},
     cloned_node_layout_kwargs: Dict = {},
-    node_palette: Optional[Union[Dict, List]] = None,
-    edge_palette: Optional[Union[Dict, List]] = None,
 ):
     """High-level graph plotting function.
 
@@ -175,10 +164,6 @@ def base_cloned(
     - `node_size_by`: Node metadata attribute key to set node size.
     - `node_enc_kwargs`: Keyword arguments to set node visual encodings.
         TODO: Elaborate on what these arguments are.
-    - `node_palette`: Optional custom palette of colours for plotting categorical groupings
-        in a list/dictionary. Colours must be values `matplotlib.colors.ListedColormap`
-        can interpret. If a dictionary is provided, key and record corresponds to
-        category and colour respectively.
 
     ### Edges
 
@@ -190,7 +175,7 @@ def base_cloned(
     - `edge_lw_by`: Edge metdata attribute key to set edge line width.
     - `edge_alpha_by`: Edge metdata attribute key to set edge transparency.
     - `edge_enc_kwargs`: Keyword arguments to set edge visual encodings.
-    - `edge_palette`: Same as node_palette but for edges.
+        TODO: Elaborate on what these arguments are.
     """
     pos = node_layout_func(
         G,
@@ -201,7 +186,6 @@ def base_cloned(
         alpha_by=node_alpha_by,
         encodings_kwargs=node_enc_kwargs,
         layout_kwargs=node_layout_kwargs,
-        palette=node_palette,
     )
     pos_cloned = node_layout_func(
         G,
@@ -212,7 +196,6 @@ def base_cloned(
         alpha_by=node_alpha_by,
         encodings_kwargs=node_enc_kwargs,
         layout_kwargs=cloned_node_layout_kwargs,
-        palette=node_palette,
     )
     edge_line_func(
         G,
@@ -223,7 +206,6 @@ def base_cloned(
         lw_by=edge_lw_by,
         alpha_by=edge_alpha_by,
         encodings_kwargs=edge_enc_kwargs,
-        palette=edge_palette,
         **edge_line_kwargs,
     )
 
@@ -271,8 +253,6 @@ class BasePlot:
         edge_alpha: Hashable = None,
         edge_width: Hashable = None,
         edgeprops: Dict = None,
-        node_palette: Optional[Union[Dict, List]] = None,
-        edge_palette: Optional[Union[Dict, List]] = None,
     ):
         """Instantiate a plot.
 
@@ -289,11 +269,6 @@ class BasePlot:
         - `edge_alpha`: The edge attribute on which to specify the transparency of edges.
         - `edge_width`: The edge attribute on which to specify the width of edges.
         - `edgeprops`: A `matplotlib-compatible `props` dictionary.
-        - `node_palette`: Optional custom palette of colours for plotting categorical groupings
-        in a list/dictionary. Colours must be values `matplotlib.colors.ListedColormap`
-        can interpret. If a dictionary is provided, key and record corresponds to
-        category and colour respectively.
-        - `edge_palette`: Same as node_palette but for edges.
         """
         import warnings
 
@@ -325,8 +300,8 @@ functional_api_names = [
     "edge_alpha_by",
     "edge_lw_by",
     "edge_enc_kwargs",
-    "node_palette",
-    "edge_palette",
+    "node_layout_kwargs",
+    "edge_line_kwargs",
 ]
 
 object_api_names = [
@@ -340,8 +315,8 @@ object_api_names = [
     "edge_alpha",
     "edge_width",
     "edgeprops",
-    "node_palette",
-    "edge_palette",
+    "layoutprops",
+    "lineprops",
 ]
 
 functional_to_object = dict(zip(functional_api_names, object_api_names))
