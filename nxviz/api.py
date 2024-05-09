@@ -300,6 +300,8 @@ functional_api_names = [
     "edge_alpha_by",
     "edge_lw_by",
     "edge_enc_kwargs",
+    "node_layout_kwargs",
+    "edge_line_kwargs",
 ]
 
 object_api_names = [
@@ -313,6 +315,8 @@ object_api_names = [
     "edge_alpha",
     "edge_width",
     "edgeprops",
+    "layoutprops",
+    "lineprops",
 ]
 
 functional_to_object = dict(zip(functional_api_names, object_api_names))
