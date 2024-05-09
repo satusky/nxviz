@@ -325,6 +325,8 @@ functional_api_names = [
     "edge_alpha_by",
     "edge_lw_by",
     "edge_enc_kwargs",
+    "node_layout_kwargs",
+    "edge_line_kwargs",
     "node_palette",
     "edge_palette",
 ]
@@ -340,6 +342,8 @@ object_api_names = [
     "edge_alpha",
     "edge_width",
     "edgeprops",
+    "layoutprops",
+    "lineprops",
     "node_palette",
     "edge_palette",
 ]
